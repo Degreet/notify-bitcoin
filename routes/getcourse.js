@@ -1,7 +1,7 @@
 const msg = require('../modules/msg.js');
 const fetch = require('node-fetch');
 
-module.exports = function getHelpCommand() {
+module.exports = function getCourseCommand() {
 	return (ctx) => {
 		fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
 			.then((resp) => resp.json())

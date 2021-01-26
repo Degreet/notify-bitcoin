@@ -4,7 +4,7 @@ module.exports = function getStartCommand(getCollection) {
 	return async (ctx) => {
 		const userId = ctx.from.id;
 		const users = getCollection('users');
-		const candidate = users.findOne({ userId });
+		const candidate = await users.findOne({ userId });
 
 		if (!candidate) users.insertOne({ userId, sub: false });
 
