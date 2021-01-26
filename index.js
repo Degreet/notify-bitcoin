@@ -1,6 +1,7 @@
 const { Telegraf } = require('telegraf');
 const useMongo = require('./modules/useMongo.js');
 const setRoutes = require('./setRoutes.js');
+const setMailing = require('./setMailing.js');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -16,6 +17,7 @@ function setup() {
 
 	useMongo(username, cluster, password, dbName).then((getCollection) => {
 		setRoutes(bot, getCollection);
+		setMailing(bot, getCollection);
 		bot.launch();
 	});
 }

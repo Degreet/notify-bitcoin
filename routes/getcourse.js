@@ -1,20 +1,10 @@
 const msg = require('../modules/msg.js');
 const fetch = require('node-fetch');
+const getCourseInUSD = require('../modules/get-course-in-usd.js');
 
 module.exports = function getCourseCommand() {
-	return (ctx) => {
-		fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
-			.then((resp) => resp.json())
-			.then((data) => {
-				const courseInUSD = data.bpi.USD.rate.replace(/\..*/, '');
-				const lastUpd = data.time.updatedISO.replace('T', ' ').slice(0, 16);
-
-				const text = `
-💵 <b>Курс биткоина</b>: $${courseInUSD}
-<i>(Обновлено ${lastUpd})</i>
-        `;
-
-				msg.send(ctx, text);
-			});
+	return async (ctx) => {
+		const text = await getCourseInUSD();
+		msg.send(ctx, text);
 	};
 };
